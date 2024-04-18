@@ -17,7 +17,7 @@ mongoose.connect('mongodb+srv://aditya:aditya123@cluster0.zoiqagj.mongodb.net/st
 });
 
 const marksSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true, unique: true },
   rollNo: String,
   MAD: Number,
   COA: Number,
