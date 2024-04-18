@@ -57,6 +57,23 @@ app.get('/marks', async (req, res) => {
   }
 });
 
+// Endpoint to fetch form data by username
+app.get('/form/:username', async (req, res) => {
+  const username = req.params.username;
+  try {
+    // Fetch form data by username from the database
+    const formData = await Marks.findOne({ name: username });
+    if (!formData) {
+      res.status(404).json({ message: 'Form data not found for the username' });
+      return;
+    }
+    res.status(200).json(formData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
